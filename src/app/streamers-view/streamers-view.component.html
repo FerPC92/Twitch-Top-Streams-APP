@@ -1,0 +1,145 @@
+<div class="container-fluid">
+  <div class="row row-nav">
+    <div class="col  col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light " id="nav-stream">
+        <a class="navbar-brand" href="http://www.streamhatchet.com" target="_blank"><img class="logo-nav"
+            src="https://www.streamhatchet.com/img/guidelines/new/StreamHatchet-logo.png" alt=""></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="http://www.streamhatchet.com/platform" target="_blank" id="links-nav">PLATFORM <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="http://www.streamhatchet.com/reports" target="_blank" id="links-nav">REPORTS</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="http://www.streamhatchet.com/api_services" target="_blank" id="links-nav">API SERVICE</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="http://www.streamhatchet.com/contact" target="_blank" id="links-nav">CONTACT</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="http://www.streamhatchet.com/about" target="_blank" id="links-nav">ABOUT</a>
+            </li>
+          </ul>
+          <ul class="navbar-nav mr-auto" id="list-res">
+            <li class="nav-item">
+              <a class="nav-link" id="links-nav" href="https://blog.streamhatchet.com/" target="_blank"><i
+                  class="fa fa-rss" aria-hidden="true"></i>BLOG</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="links-nav" href="https://twitter.com/streamhatchet" target="_blank"><span
+                  class="nav-tweet"><i class="fa fa-twitter" aria-hidden="true"></i>
+                  @StreamHatchet</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="links-nav"><i class="fa fa-instagram" aria-hidden="true"></i>
+                <span class="nav-tweet"> @StreamHatchet_</span></a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </div>
+
+  <div class="row row-header">
+    <div class="col col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <div class="head-contain">
+        <h1>GAME STREAMING <span>INTELLIGENCE</span></h1>
+        <h4>Powering data driven decisions with live stream intelligence</h4>
+        <a href="https://app.streamhatchet.com/" target="_blank"><button>TRY OUT OUR PLATFORM</button></a>
+      </div>
+    </div>
+  </div>
+  <div class="row row-summary">
+    <div class="col col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <div class="summary-contain">
+        <h1><img class="stream-twitch-logo"
+            src="https://d5f75szkq391e.cloudfront.net/Images/landingPage/v2/icon-twitch.png" alt=""> Twitch Streaming
+          Section</h1>
+        <div class="summary-data" *ngIf="this._mainService.summary">
+          <h3 class="live-channels"><span class="live">Live</span> Channels Now:
+            {{this._mainService.summary["channels"]}}</h3>
+          <h3> <span class="live">Live</span> Viewers : {{this._mainService.summary["viewers"]}}</h3>
+        </div>
+        <h4>TOP STREAMS</h4>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="row row-data">
+    <div class="col col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col"><img src="https://d5f75szkq391e.cloudfront.net/Images/landingPage/v2/platform_twitch.png"
+                alt=""></th>
+            <th scope="col">Stream Preview</th>
+            <th scope="col" colspan="2"> Currently playing</th>
+            <th scope="col"> Current Viewers</th>
+            <th scope="col" class="avatar-res"></th>
+            <th scope="col">Streamer</th>
+            <th scope="col">Followers</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody *ngFor=" let element of this._mainService.topStreamers |slice:0:10 let i='index' ">
+          <tr>
+            <th scope="row">{{i+1}}</th>
+            <td><img class="img-preview-stream" [src]="element.preview['small']" alt=""></td>
+            <td colspan="2" class="game-name">{{element.game}}</td>
+            <td><strong class="numbers-display">{{element.viewers}}</strong></td>
+            <td class="avatar-res"><img class="img-logo" [src]="element.channel['logo']" alt=""></td>
+            <td>{{element.channel["display_name"]}}</td>
+            <!-- <td>{{element.channel["status"]}}</td> -->
+            <td class="followers">{{element.channel["followers"]}}</td>
+            <td> <a [href]="element.channel['url']" target="_blank"> <button class="btn btn-primary">See the
+                  Stream!</button></a></td>
+
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row row-chart">
+    <div class="col col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <div *ngIf="this._mainService.topStreamers">
+        <div style="display: block">
+          <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+            [legend]="barChartLegend" [chartType]="barChartType">
+          </canvas>
+        </div>
+      </div>
+    </div> 
+  </div>
+    <div class="row row-footer">
+      <div class="col col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="footer">
+          <div class="cities">
+            <div class="map-icon">
+              <i class="fa fa-map-marker" aria-hidden="true"></i>
+              <p>Barcelona</p>
+            </div>
+            <p>Los Angeles</p>
+            <p>New York City</p>
+          </div>
+          <div class="social">
+            <i class="fa fa-twitter" aria-hidden="true"></i>
+            <a href="https://twitter.com/streamhatchet" target="_blank">@StreamHatchet</a>
+          </div>
+          <div class="branding">
+            <i class="fa fa-pencil" aria-hidden="true"></i>
+            <a href="http://www.streamhatchet.com/guidelines" target="_blank">Branding</a>
+          </div>
+        </div>
+        <p class="rights">© 2019 Stream Hatchet SLU - All rights reserved - Privacy Policy - Terms of Service</p>
+      </div>
+
+    </div>
+  </div>
